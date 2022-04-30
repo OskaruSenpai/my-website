@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Voorel</title>
+		<meta charset="UTF-8" />
+		<link rel="icon" href="./media/favicon.png" />
+		<link rel="apple-touch-icon" href="./media/favicon.png" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, user-scalable=0"
+		/>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta name="theme-color" content="#000000" />
+		<meta name="description" content="A website about Voorels" />
+		<meta name="og:title" content="Voorel" />
+		<meta name="og:type" content="website" />
+		<meta name="og:image:secure_url" content="./media/favicon.png" />
+		<meta name="og:url" content="https://voorel.com" />
+		<meta name="og:description" content="A website about Voorels" />
+		<style>
+			html,
+			body,
+			canvas {
+				margin: 0;
+				box-sizing: border-box;
+				padding: 0;
+				height: 100%;
+				width: 100%;
+				overflow: hidden;
+				background-color: black;
+				cursor: none;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas"></canvas>
+	</body>
+	<script>
+		const canvas = document.getElementById('canvas');
+		const mouse_position = { x: 0, y: 0 };
+		const ctx = canvas.getContext('2d');
+		const hh = 0.85;
+		let animation_frame_ID;
+		const draw = () => {
+			const { x, y } = mouse_position;
+			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+			ctx.fillStyle = '#00f';
+			ctx.strokeStyle = '#00f';
+			ctx.globalAlpha = 0.5;
+			ctx.beginPath();
+			ctx.moveTo(ctx.canvas.width * 0.19, 0);
+			ctx.lineTo(x - ctx.canvas.width / 10, ctx.canvas.height * hh);
+			ctx.lineTo(x + ctx.canvas.width / 10, ctx.canvas.height * hh);
+			ctx.lineTo(ctx.canvas.width * 0.21, 0);
+			ctx.moveTo(ctx.canvas.width * 0.79, 0);
+			ctx.lineTo(x - ctx.canvas.width / 10, ctx.canvas.height * hh);
+			ctx.lineTo(x + ctx.canvas.width / 10, ctx.canvas.height * hh);
+			ctx.lineTo(ctx.canvas.width * 0.81, 0);
+			ctx.fill();
+			ctx.beginPath();
+			ctx.fillStyle = '#fff';
+			ctx.moveTo(ctx.canvas.width * 0.198, 0);
+			ctx.lineTo(x - ctx.canvas.width / 25, ctx.canvas.height * hh);
+			ctx.lineTo(x + ctx.canvas.width / 25, ctx.canvas.height * hh);
+			ctx.lineTo(ctx.canvas.width * 0.202, 0);
+			ctx.moveTo(ctx.canvas.width * 0.798, 0);
+			ctx.lineTo(x - ctx.canvas.width / 25, ctx.canvas.height * hh);
+			ctx.lineTo(x + ctx.canvas.width / 25, ctx.canvas.height * hh);
+			ctx.lineTo(ctx.canvas.width * 0.802, 0);
+			ctx.fill();
+			ctx.beginPath();
+			ctx.ellipse(
+				x,
+				ctx.canvas.height * hh,
+				ctx.canvas.width / 10,
+				ctx.canvas.width / 25,
+				Math.PI,
+				0,
+				Math.PI,
+				true,
+			);
+			ctx.fill();
+		};
+		canvas.height = canvas.clientHeight;
+		canvas.width = canvas.clientWidth;
+		window.addEventListener('resize', () => {
+			canvas.height = canvas.clientHeight;
+			canvas.width = canvas.clientWidth;
+		});
+		window.addEventListener('mousemove', ({ pageX, pageY }) => {
+			mouse_position.x = pageX;
+			mouse_position.y = pageY;
+			animation_frame_ID = requestAnimationFrame(draw);
+		});
+	</script>
+</html>
